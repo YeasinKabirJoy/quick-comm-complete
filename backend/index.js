@@ -1,9 +1,10 @@
 const bodyParser = require("body-parser");
 const express = require("express");
+const cors = require('cors')
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dbConnect = require("./config/dbConnect");
-const { notFound,errorHandler } = require("./middlewares/errorHandler.js")
+const { notFound, errorHandler } = require("./middlewares/errorHandler.js")
 
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 8000;
@@ -19,11 +20,12 @@ const couponRouter = require("./routes/couponRoute")
 
 dbConnect();
 app.use(morgan("dev"));
+app.use(cors())
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-  
+
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/blog", blogRouter);
@@ -36,6 +38,6 @@ app.use("/api/coupon", couponRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
     console.log(`Server is running at ${PORT}....`)
 });
