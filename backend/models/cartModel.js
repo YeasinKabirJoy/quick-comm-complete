@@ -6,7 +6,7 @@ var CartSchema = new mongoose.Schema({
     products: [
         {
             product: {
-                type: ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Product",
             },
             count: Number,
@@ -17,7 +17,7 @@ var CartSchema = new mongoose.Schema({
     cartTotal: Number,
     totalAfterDiscount: Number,
     orderBy: {
-        type: ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
 }, {

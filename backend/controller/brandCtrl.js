@@ -3,60 +3,60 @@ const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 
 
-const createBrnad = asyncHandler(async (req,res)=>{
-    try{
+const createBrand = asyncHandler(async (req, res) => {
+    try {
         const newBrand = await Brand.create(req.body);
         res.json(newBrand);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 });
 
-const updateBrnad = asyncHandler(async (req,res)=>{
-    const {id} = req.params;
+const updateBrand = asyncHandler(async (req, res) => {
+    const { id } = req.params;
     validateMongoDbId(id);
-    try{
-        const updatedBrand = await Brand.findByIdAndUpdate(id,req.body,
+    try {
+        const updatedBrand = await Brand.findByIdAndUpdate(id, req.body,
             {
-                new:true
+                new: true
             }
-         );
+        );
         res.json(updatedBrand);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 });
 
-const deleteBrand = asyncHandler(async (req,res)=>{
-    const {id} = req.params;
+const deleteBrand = asyncHandler(async (req, res) => {
+    const { id } = req.params;
     validateMongoDbId(id);
-    try{
+    try {
         const deletedBrand = await Brand.findByIdAndDelete(id);
         res.json(deletedBrand);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 });
 
-const getBrand = asyncHandler(async (req,res)=>{
-    const {id} = req.params;
+const getBrand = asyncHandler(async (req, res) => {
+    const { id } = req.params;
     validateMongoDbId(id);
-    try{
+    try {
         const getBrand = await Brand.findById(id);
         res.json(getBrand);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 });
 
-const getAllBrand = asyncHandler(async (req,res)=>{
-    try{
+const getAllBrand = asyncHandler(async (req, res) => {
+    try {
         const allBrand = await Brand.find();
         res.json(allBrand);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 });
 
 
-module.exports = {createBrnad,updateBrnad,deleteBrand,getBrand,getAllBrand}
+module.exports = { createBrand, updateBrand, deleteBrand, getBrand, getAllBrand }

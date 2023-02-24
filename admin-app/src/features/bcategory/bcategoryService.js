@@ -3,7 +3,7 @@ import { base_url } from "../../utils/baseUrl";
 import { config } from "../../utils/axiosconfig";
 
 const getBlogCategories = async () => {
-  const response = await axios.get(`${base_url}blogcategory/`);
+  const response = await axios.get(`${base_url}bcategory/`);
 
   return response.data;
 };

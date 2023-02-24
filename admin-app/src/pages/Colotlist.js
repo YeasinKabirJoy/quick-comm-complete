@@ -42,7 +42,7 @@ const Colorlist = () => {
   for (let i = 0; i < colorState.length; i++) {
     data1.push({
       key: i + 1,
-      name: colorState[i].title,
+      name: colorState[i].name,
       action: (
         <>
           <Link
