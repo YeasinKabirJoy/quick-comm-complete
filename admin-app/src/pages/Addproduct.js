@@ -10,10 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/brandSlice";
 import { getCategories } from "../features/pcategory/pcategorySlice";
 import { getColors } from "../features/color/colorSlice";
+import Multiselect from "react-widgets/Multiselect";
+import "react-widgets/styles.css";
+
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
 import { createProducts, resetState } from "../features/product/productSlice";
+
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
   description: yup.string().required("Description is Required"),
@@ -57,10 +61,11 @@ const Addproduct = () => {
   const coloropt = [];
   colorState.forEach((i) => {
     coloropt.push({
-      label: i.title,
-      value: i._id,
+      id: i._id,
+      color: i.name,
     });
   });
+  console.log(coloropt)
   const img = [];
   imgState.forEach((i) => {
     img.push({
@@ -151,8 +156,8 @@ const Addproduct = () => {
             <option value="">Select Brand</option>
             {brandState.map((i, j) => {
               return (
-                <option key={j} value={i.title}>
-                  {i.title}
+                <option key={j} value={i.name}>
+                  {i.name}
                 </option>
               );
             })}
@@ -189,7 +194,7 @@ const Addproduct = () => {
             id=""
           >
             <option value="" disabled>
-              Select Category
+              Select Tags
             </option>
             <option value="featured">Featured</option>
             <option value="popular">Popular</option>
@@ -199,15 +204,13 @@ const Addproduct = () => {
             {formik.touched.tags && formik.errors.tags}
           </div>
 
-          <Select
-            mode="multiple"
-            allowClear
-            className="w-100"
-            placeholder="Select colors"
-            defaultValue={color}
-            onChange={(i) => handleColors(i)}
-            options={coloropt}
-          />
+          <Multiselect
+            name="color"
+            dataKey="id"
+            textField="color"
+            data={coloropt}
+            onChange={(e) => setColor(e)}
+          />;
           <div className="error">
             {formik.touched.color && formik.errors.color}
           </div>
@@ -222,6 +225,8 @@ const Addproduct = () => {
           <div className="error">
             {formik.touched.quantity && formik.errors.quantity}
           </div>
+
+
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
