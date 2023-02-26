@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/brandSlice";
 import { getCategories } from "../features/pcategory/pcategorySlice";
 import { getColors } from "../features/color/colorSlice";
-import Multiselect from "react-widgets/Multiselect";
-import "react-widgets/styles.css";
 
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
@@ -58,14 +56,17 @@ const Addproduct = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
+
   const coloropt = [];
   colorState.forEach((i) => {
     coloropt.push({
-      id: i._id,
-      color: i.name,
+      label: i.name,
+      value: i._id
     });
   });
-  console.log(coloropt)
+
+  console.log("color", coloropt)
+
   const img = [];
   imgState.forEach((i) => {
     img.push({
@@ -96,13 +97,12 @@ const Addproduct = () => {
       formik.resetForm();
       setColor(null);
       setTimeout(() => {
-        dispatch(resetState());
+        navigate("/admin/list-product");
       }, 3000);
     },
   });
   const handleColors = (e) => {
     setColor(e);
-    console.log(color);
   };
   return (
     <div>
@@ -204,13 +204,15 @@ const Addproduct = () => {
             {formik.touched.tags && formik.errors.tags}
           </div>
 
-          <Multiselect
-            name="color"
-            dataKey="id"
-            textField="color"
-            data={coloropt}
-            onChange={(e) => setColor(e)}
-          />;
+          <Select
+            mode="multiple"
+            allowClear
+            className="w-100"
+            placeholder="Select colors"
+            defaultValue={color}
+            onChange={(i) => handleColors(i)}
+            options={coloropt}
+          />
           <div className="error">
             {formik.touched.color && formik.errors.color}
           </div>

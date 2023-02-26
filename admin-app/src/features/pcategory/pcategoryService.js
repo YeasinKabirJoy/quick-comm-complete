@@ -8,19 +8,19 @@ const getProductCategories = async () => {
   return response.data;
 };
 const createCategory = async (category) => {
-  const response = await axios.post(`${base_url}category/`, category, config);
+  const response = await axios.post(`${base_url}pcategory/`, category, config);
 
   return response.data;
 };
 
 const getProductCategory = async (id) => {
-  const response = await axios.get(`${base_url}category/${id}`, config);
+  const response = await axios.get(`${base_url}pcategory/${id}`, config);
 
   return response.data;
 };
 
 const deleteProductCategory = async (id) => {
-  const response = await axios.delete(`${base_url}category/${id}`, config);
+  const response = await axios.delete(`${base_url}pcategory/${id}`, config);
 
   return response.data;
 };
