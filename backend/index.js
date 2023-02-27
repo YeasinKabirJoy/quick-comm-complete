@@ -20,6 +20,7 @@ const brandRouter = require("./routes/brandRoute");
 const colorRouter = require("./routes/colorRoute");
 const enqRouter = require("./routes/enqRoute");
 const couponRouter = require("./routes/couponRoute");
+const { format } = require("morgan");
 
 dbConnect();
 app.use(morgan("dev"));

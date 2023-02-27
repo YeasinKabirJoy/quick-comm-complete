@@ -14,7 +14,7 @@ import { getColors } from "../features/color/colorSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
-import { createProducts, resetState } from "../features/product/productSlice";
+import { createProducts } from "../features/product/productSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -65,7 +65,6 @@ const Addproduct = () => {
     });
   });
 
-  console.log("color", coloropt)
 
   const img = [];
   imgState.forEach((i) => {
@@ -98,7 +97,7 @@ const Addproduct = () => {
       setColor(null);
       setTimeout(() => {
         navigate("/admin/list-product");
-      }, 3000);
+      }, 300);
     },
   });
   const handleColors = (e) => {
